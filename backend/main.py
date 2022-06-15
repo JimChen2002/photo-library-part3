@@ -24,11 +24,11 @@ async def add_photo_to_MongoDB(photo_data:dict):
 ####################
 # Connection to TigerGraph
 conn = tg.TigerGraphConnection(
-    host="https://photo-manager.i.tgcloud.io",
+    host="https://photo-library.i.tgcloud.io",
     graphname="photos",
     username="tigergraph",
     password="tigergraph", )
-#conn.apiToken = conn.getToken(conn.createSecret())
+conn.apiToken = conn.getToken(conn.createSecret())
 #conn.apiToken = ('...', ..., '...')
 async def add_photo_id_to_TigerGraph(id: str):
     try:
