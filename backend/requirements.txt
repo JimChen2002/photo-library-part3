@@ -1,0 +1,7 @@
+# requirements.txt
+fastapi==0.75.2
+uvicorn==0.15.0
+pyTigerGraph==0.0.9.9.2
+motor==2.5.1
+python-multipart==0.0.5
+matplotlib==3.5.2
