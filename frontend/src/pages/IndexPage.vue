@@ -1,47 +1,43 @@
 <template>
   <div class="background">
     <div class="upload-content">
-      <slot>
-        <div>
-          <div class="row">
-            <div class="col-6" align="end">
-              <q-avatar v-if="selectedPhotoURL==''" size="80px" font-size="80px" color="orange" text-color="white" icon="image" class="image-icon" />
-              <q-img
-                v-if="selectedPhotoURL"
-                :src="selectedPhotoURL"
-                class="photo-preview"
-              >
-              </q-img>
-            </div>
-            <input 
-              style="display: none" 
-              type="file" 
-              @change="onFileSelected"
-              ref="photoInput">
-            <q-btn
-              label="Pick Photo"
-              outline
-              type="submit"
-              class="outlined-button pick-button text-body1 text-weight-bolder"
-              @keydown.enter.prevent
-              @click="($refs.photoInput as any).click()"
-            ></q-btn>
-          </div>
-          <div v-if="message" class="alert" role="alert">
-            {{ message }}
-          </div>
-          <div class="upload-btn-position">
-            <q-btn
-              label="upload"
-              type="submit"
-              icon-right="chevron_right"
-              outline
-              class="outlined-button text-body1 text-weight-bolder"
-              @click="savePhoto"
-            ></q-btn>
-          </div>
+      <div class="row">
+        <div class="col-6" align="end">
+          <q-avatar v-if="selectedPhotoURL==''" size="80px" font-size="80px" color="orange" text-color="white" icon="image" class="image-icon" />
+          <q-img
+            v-if="selectedPhotoURL"
+            :src="selectedPhotoURL"
+            class="photo-preview"
+          >
+          </q-img>
         </div>
-      </slot>
+        <input 
+          style="display: none" 
+          type="file" 
+          @change="onFileSelected"
+          ref="photoInput">
+        <q-btn
+          label="Pick Photo"
+          outline
+          type="submit"
+          class="outlined-button pick-button text-body1 text-weight-bolder"
+          @keydown.enter.prevent
+          @click="($refs.photoInput as any).click()"
+        ></q-btn>
+      </div>
+      <div v-if="message" class="alert" role="alert">
+        {{ message }}
+      </div>
+      <div class="upload-btn-position">
+        <q-btn
+          label="upload"
+          type="submit"
+          icon-right="chevron_right"
+          outline
+          class="outlined-button text-body1 text-weight-bolder"
+          @click="savePhoto"
+        ></q-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -98,15 +94,13 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .background {
-  background-color: #f78116;
   padding: 10%;
   height: 100%;
 }
 .upload-content {
-  background-color: #997049;
   align-items: center;
   justify-content: center;
-  padding: 15%;
+  padding: 5%;
 }
 .image-icon{
   margin-right: 10%;
@@ -127,7 +121,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 .photo-preview {
   width: 80px;
@@ -137,6 +131,7 @@ export default defineComponent({
   border-radius: 50%;
   margin-right: 10%;
   margin-left: 20%;
+  border-radius: 16px;
   background: grey;
 }
 </style>
