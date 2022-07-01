@@ -5,8 +5,7 @@ Photo hosting service with image classification and searching
 Part I: Upload Photos
 
 This code implements a simple page with photo upload and preview.
-![result](https://github.com/JimChen2002/photo-library-part1/blob/master/demo_images/part1-result.png)
-![result](https://github.com/JimChen2002/photo-library-part1/blob/master/demo_images/part1-preview.png)
+![result](https://github.com/JimChen2002/photo-library-part2/blob/master/demo_images/part2-preview.png)
 
 ## Install the dependencies
 ```bash
