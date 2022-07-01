@@ -3,7 +3,7 @@
     <div class="upload-content">
       <div class="row">
         <div class="col-6" align="end">
-          <q-avatar v-if="selectedPhotoURL==''" size="80px" font-size="80px" color="orange" text-color="white" icon="image" class="image-icon" />
+          <q-avatar v-if="selectedPhotoURL==''" size="80px" font-size="80px" color="red" text-color="white" icon="image" class="image-icon" />
           <q-img
             v-if="selectedPhotoURL"
             :src="selectedPhotoURL"
@@ -45,7 +45,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
-
 export default defineComponent({
   name: 'IndexPage',
   components: {},
