@@ -1,6 +1,7 @@
 # main.py
 # modules for MongoDB
 import motor.motor_asyncio
+from bson.objectid import ObjectId
 
 # modules for TigerGraph
 import pyTigerGraph as tg
@@ -16,6 +17,10 @@ import matplotlib.pyplot as plt
 # modules for FastAPI
 import uvicorn
 from fastapi import FastAPI, UploadFile
+from fastapi.responses import Response
+import base64
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Union
 
 ####################
 # Connection to MongoDB
@@ -28,6 +33,17 @@ async def add_photo_to_MongoDB(photo_data:dict):
     try:
         entry = await photo_collection.insert_one(photo_data)
         return str(entry.inserted_id) 
+    except:
+        return False
+
+# Get a specific photo from MongoDB by ID
+async def retrieve_photo_from_MongoDB(id:str):
+    try:
+        entry = await photo_collection.find_one({"_id": ObjectId(id)})
+        if entry:
+            return entry
+        else:
+            return False
     except:
         return False
 
@@ -56,9 +72,30 @@ async def add_photo_id_with_predictions_into_TigerGraph(id: str, predictions: li
     except:
         return False
 
+async def retrieve_all_photo_info_from_TigerGraph(text: str):
+    try:
+        threshold = 0.5
+        results = conn.runInstalledQuery("FetchAllPhotos", params={
+            "text": text, 
+            "threshold": threshold
+        })
+        ret = []
+        for photo_info in results[0]["result"]:
+            ret.append(photo_info["attributes"]["id"])
+        return ret
+    except:
+        return False
+
 ####################
 # API endpoints
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 model = tf.keras.models.load_model('my_model')
 probability_model = tf.keras.Sequential([model, tf.keras.layers.Softmax()])
@@ -83,6 +120,26 @@ async def upload_photo(file: UploadFile):
         return { "code": 200, "message": "Photo uploaded"}
     else:
         return { "code": 401, "message": "Failed to add photo"}
+
+@app.put("/retrievePhoto/{id}")
+async def retrieve_photo(id: str):
+    data = await retrieve_photo_from_MongoDB(id)
+    if not data:
+        return { "code": 401, "message": "Failed to get photo."}
+    contents = data["photo"]
+    contents=base64.b64encode(contents)
+    return Response(content=contents, media_type="image/png")
+
+@app.put("/retrieveAllPhotoInfo")
+async def retrieve_all_photo_info(text: Union[str, None] = None):
+    if text is None:
+        data = await retrieve_all_photo_info_from_TigerGraph("")
+    else:
+        data = await retrieve_all_photo_info_from_TigerGraph(text)
+    if not data:
+        return { "code": 401, "message": "Failed to retrieve photo"}
+    else:
+        return { "code": 200, "data": data, "message": "Photo fetched" }
 
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True)
