@@ -3,7 +3,7 @@
 Photo hosting service with image classification and searching
 
 This code implements a page with photo uploading, display, and searching.
-![result](https://github.com/JimChen2002/photo-library-part2/blob/master/demo_images/part3-preview.png)
+![result](https://github.com/JimChen2002/photo-library-part3/blob/master/demo_images/part3-preview.png)
 
 ## Install the dependencies
 ```bash
