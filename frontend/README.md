@@ -2,10 +2,8 @@
 
 Photo hosting service with image classification and searching
 
-Part I: Upload Photos
-
-This code implements a simple page with photo upload and preview.
-![result](https://github.com/JimChen2002/photo-library-part2/blob/master/demo_images/part2-preview.png)
+This code implements a page with photo uploading, display, and searching.
+![result](https://github.com/JimChen2002/photo-library-part2/blob/master/demo_images/part3-preview.png)
 
 ## Install the dependencies
 ```bash
@@ -41,6 +39,3 @@ npm run format
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
