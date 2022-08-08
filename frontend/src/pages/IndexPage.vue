@@ -72,6 +72,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import { Buffer } from 'buffer';
+
 export default defineComponent({
   name: 'IndexPage',
   components: {},
